@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>Vay Boshim - Kulgili Latifalar</title>
+  <style>
+    body {
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #fffbe6 0%, #ffe9c7 100%);
+      color: #222;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: linear-gradient(90deg, #ffcc00 60%, #ffa502 100%);
+      padding: 38px 0 28px 0;
+      text-align: center;
+      font-size: 2.5em;
+      font-weight: 900;
+      color: #222;
+      letter-spacing: 2.5px;
+      box-shadow: 0 4px 24px rgba(255, 204, 0, 0.13);
+      border-bottom-left-radius: 32px;
+      border-bottom-right-radius: 32px;
+      position: relative;
+      z-index: 2;
+    }
+    header::after {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 50%;
+      bottom: -18px;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 12px;
+      background: linear-gradient(90deg, #ffe9c7 0%, #fffbe6 100%);
+      border-radius: 50px;
+      opacity: 0.25;
+      z-index: 1;
+      filter: blur(2px);
+    }
+
+    main {
+      flex: 1;
+      padding: 40px 24px 28px 24px;
+      max-width: 650px;
+      margin: 40px auto 0 auto;
+      background: rgba(255,255,255,0.98);
+      border-radius: 22px;
+      box-shadow: 0 8px 32px rgba(255, 204, 0, 0.13), 0 2px 12px rgba(0,0,0,0.06);
+      position: relative;
+      z-index: 2;
+      backdrop-filter: blur(1.5px);
+      border: 1.5px solid #ffe9c7;
+    }
+
+    label {
+      font-size: 1.18em;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: block;
+      color: #e17055;
+      letter-spacing: 0.5px;
+      text-shadow: 0 1px 0 #fffbe6;
+    }
+
+    select {
+      font-size: 1.12em;
+      padding: 14px 16px;
+      margin-bottom: 32px;
+      width: 100%;
+      background: #fffbe6;
+      border: 2.5px solid #ffa502;
+      border-radius: 12px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px rgba(255, 204, 0, 0.09);
+      font-weight: 600;
+      color: #e17055;
+    }
+    select:focus {
+      border-color: #e17055;
+      box-shadow: 0 0 0 2px #ffe9c7;
+    }
+
+    .latifa {
+      background: linear-gradient(90deg, #fffdfa 80%, #fffbe6 100%);
+      border-left: 7px solid #ffa502;
+      padding: 22px 22px 22px 28px;
+      margin-bottom: 22px;
+      border-radius: 14px;
+      box-shadow: 0 4px 18px rgba(255, 204, 0, 0.10);
+      font-size: 1.18em;
+      font-weight: 600;
+      transition: box-shadow 0.2s, transform 0.13s;
+      position: relative;
+      overflow: hidden;
+      color: #222;
+      line-height: 1.6;
+      letter-spacing: 0.1px;
+    }
+    .latifa:hover {
+      box-shadow: 0 8px 32px rgba(255, 204, 0, 0.18);
+      transform: translateY(-2px) scale(1.015);
+      background: linear-gradient(90deg, #fffbe6 60%, #ffe9c7 100%);
+    }
+    .latifa::before {
+      content: "😂";
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      font-size: 1.2em;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .pagination {
+      text-align: center;
+      margin-top: 32px;
+      user-select: none;
+    }
+
+    .pagination button {
+      padding: 12px 18px;
+      margin: 0 5px;
+      border: none;
+      background: linear-gradient(90deg, #ffa502 60%, #ffcc00 100%);
+      color: #fff;
+      border-radius: 9px;
+      cursor: pointer;
+      font-size: 1.08em;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(255, 204, 0, 0.13);
+      transition: background 0.2s, transform 0.1s, color 0.2s;
+      outline: none;
+      letter-spacing: 0.5px;
+    }
+    .pagination button.active {
+      background: linear-gradient(90deg, #e17055 60%, #ffb142 100%);
+      color: #fff;
+      transform: scale(1.10);
+      box-shadow: 0 4px 16px rgba(225, 112, 85, 0.13);
+    }
+    .pagination button:hover:not(.active) {
+      background: #ffd36b;
+      color: #e17055;
+      transform: scale(1.05);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px 0 16px 0;
+      background: linear-gradient(90deg, #ffcc00 60%, #ffa502 100%);
+      font-size: 1.08em;
+      color: #222;
+      font-weight: 600;
+      border-top-left-radius: 22px;
+      border-top-right-radius: 22px;
+      box-shadow: 0 -4px 18px rgba(255, 204, 0, 0.10);
+      margin-top: 40px;
+      letter-spacing: 0.5px;
+      position: relative;
+      z-index: 2;
+    }
+    footer::before {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: -14px;
+      transform: translateX(-50%);
+      width: 90px;
+      height: 10px;
+      background: linear-gradient(90deg, #ffe9c7 0%, #fffbe6 100%);
+      border-radius: 50px;
+      opacity: 0.22;
+      z-index: 1;
+      filter: blur(1.5px);
+    }
+
+    @media (max-width: 700px) {
+      main {
+        max-width: 98vw;
+        padding: 22px 6vw 18px 6vw;
+        margin: 18px auto 0 auto;
+      }
+      header {
+        font-size: 1.5em;
+        padding: 22px 0 16px 0;
+        border-bottom-left-radius: 18px;
+        border-bottom-right-radius: 18px;
+      }
+      footer {
+        font-size: 0.98em;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        margin-top: 18px;
+      }
+      .latifa {
+        font-size: 1em;
+        padding: 14px 10px 14px 16px;
+        border-radius: 8px;
+      }
+      .pagination button {
+        padding: 8px 12px;
+        font-size: 0.98em;
+        border-radius: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    🤕 Vay Boshim! - Kulgili Latifalar
+  </header>
+
+  <main>
+    <div style="position: absolute; right: 0; top: 60px; width: 210px; z-index: 3;"></div>
+        <div style="background: linear-gradient(90deg,#ffe9c7 60%,#fffbe6 100%); border-radius: 18px; box-shadow: 0 4px 18px rgba(255,204,0,0.10); padding: 18px 16px 14px 16px; margin-bottom: 18px; border: 2px solid #ffa502;">
+            <div style="font-size: 1.18em; font-weight: 700; color: #e17055; margin-bottom: 10px; letter-spacing: 0.5px;">
+                Super Donatlar
+            </div>
+            <div style="display: flex; align-items: center; font-weight: 700; color: #d35400; margin-bottom: 10px; font-size: 1.08em;">
+                <span style="font-size:1.2em; margin-right:6px;">👑</span> Asilbek <span style="margin-left:auto;">25.000</span>
+            </div>
+            <div style="display: flex; align-items: center; font-weight: 600; color: #e17055; margin-bottom: 8px;">
+                Alibek <span style="margin-left:auto;">14.000</span>
+            </div>
+            <div style="display: flex; align-items: center; font-weight: 600; color: #e17055; margin-bottom: 8px;">
+                Tillo <span style="margin-left:auto;">10.000</span>
+            </div>
+            <div style="display: flex; align-items: center; font-weight: 600; color: #e17055; margin-bottom: 8px;">
+                Jahon <span style="margin-left:auto;">5.000</span>
+            </div>
+            <div style="display: flex; align-items: center; font-weight: 600; color: #e17055; margin-bottom: 8px;">
+                G'iyoz <span style="margin-left:auto;">2.000</span>
+            </div>
+            <div style="display: flex; align-items: center; font-weight: 600; color: #e17055;">
+                Shohbek <span style="margin-left:auto;">2.000</span>
+            </div>
+            <button id="donateBtn" style="margin-top:14px; width:100%; background:linear-gradient(90deg,#e17055 60%,#ffb142 100%); color:#fff; font-weight:700; font-size:1.08em; border:none; border-radius:9px; padding:12px 0; cursor:pointer; box-shadow:0 2px 8px rgba(255,204,0,0.13); transition:background 0.2s,transform 0.1s;">Qo'llab-quvvatlash</button>
+            <div id="cardInfo" style="display:none; margin-top:14px; background:#fffbe6; border:2px solid #ffa502; border-radius:10px; padding:14px 10px; text-align:center;">
+                <div style="font-size:1.18em; font-weight:700; color:#e17055; letter-spacing:1px; margin-bottom:6px;">4073 4200 8456 9577</div>
+                <div style="font-size:1em; color:#d35400; font-weight:600;">Qoriyev Elbek</div>
+            </div>
+            <script>
+                document.getElementById('donateBtn').onclick = function() {
+                    var info = document.getElementById('cardInfo');
+                    info.style.display = (info.style.display === 'none' || info.style.display === '') ? 'block' : 'none';
+                };
+            </script>
+        </div>
+    </div>
+    <label for="janr">Janrni tanlang:</label>
+    <select id="janr" onchange="korsatLatifalar(1)">
+      <option value="bosh">-- Janrni tanlang --</option>
+      <option value="hoshim">Hoshim</option>
+      <option value="maktab">Maktab</option>
+      <option value="palakat">Palakat</option>
+    </select>
+
+    <div id="latifalar"></div>
+    <div class="pagination" id="pagination"></div>
+  </main>
+
+  <footer>
+    &copy; 2025 VayBoshim.uz | Kuldiramiz!
+  </footer>
+
+  <script>
+    const baza = {
+      hoshim: [
+        "🤕 Vay boshim, Hoshim nima qildin?! 🙄",
+        "🙄 Hoshim! – Obo nima qilibman 😒",
+        "– Ne unda boshim og'riyapti? 🫨",
+        "😂 Hoshim doim bir baloni chiqaradi",
+        "😵 Hoshim maktabga pishloq olib kelibdi, sababi? – O'qituvchi 'darsga pishiq kel' debdi!",
+        "😂 Hoshim ‘google translate’dan sinfga murojaat qildi!",
+        "🙃 Hoshim darsda jim yotibdi. Sababi: uyquga savol berishmaydi dedi",
+        "🤓 Hoshim: 2+2=22, chunki ikkita 2 yonma-yon tursa shunaqa bo‘ladi",
+        "😆 Hoshim yo‘lda ketayotgan odamga: ‘oyog‘ing qayerda’ debdi 😂",
+        "🤣 Hoshim Facebookga kartoshka rasmi qo‘yibdi: status – ‘meni to‘g‘ri tanlang!’"
+      ],
+      maktab: [
+        "👨‍🏫 O'qituvchi: 2x2 nechchi? 👦 O'quvchi: 22!",
+        "📚 Deraza ochilsa, hammaga shamol tegadi, menga esa baho 😒",
+        "😒 Ustoz: telefoningni olib qo'yaman! O'quvchi: simsiz zaryadda qolsin unda",
+        "😂 Maktabda har kuni sinov: ‘kim erta kelsa joy egasi’"
+      ],
+      palakat: [
+        "🤔 Qayerdan ble palakat?",
+        "🤧 Palakatmi?",
+        "🤯 Bilmesanmi?! – Bilsam so‘ramiman-da 🙄",
+        "😂 Palakat bu San!",
+        "😵 Palakatni eshitib, kallam urdi shiftga",
+        "🤣 Palakat: kuchli so‘z, ammo ma'nosi yo‘q"
+      ]
+    };
+
+    const PER_PAGE = 3;
+    let currentJanr = "";
+    let currentPage = 1;
+
+    function korsatLatifalar(page) {
+      const janr = document.getElementById('janr').value;
+      currentJanr = janr;
+      currentPage = page;
+      const joy = document.getElementById('latifalar');
+      const pagi = document.getElementById('pagination');
+      joy.innerHTML = '';
+      pagi.innerHTML = '';
+
+      if (janr === 'bosh') return;
+
+      const latifalar = baza[janr];
+      const start = (page - 1) * PER_PAGE;
+      const end = start + PER_PAGE;
+      const totalPages = Math.ceil(latifalar.length / PER_PAGE);
+
+      latifalar.slice(start, end).forEach(matn => {
+        const div = document.createElement('div');
+        div.className = 'latifa';
+        div.textContent = matn;
+        joy.appendChild(div);
+      });
+
+      // Sahifa tugmalari
+      for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement('button');
+        btn.textContent = i;
+        btn.className = (i === page) ? 'active' : '';
+        btn.onclick = () => korsatLatifalar(i);
+        pagi.appendChild(btn);
+      }
+
+      // Next tugmasi
+      if (page < totalPages) {
+        const nextBtn = document.createElement('button');
+        nextBtn.textContent = 'Next ▶️';
+        nextBtn.onclick = () => korsatLatifalar(page + 1);
+        pagi.appendChild(nextBtn);
+      }
+    }
+  </script>
+</body>
+</html>
